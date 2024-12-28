@@ -13,6 +13,7 @@ import ContentSharing from './pages/ContentSharing';
 import TodoList from './pages/TodoList';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                 </ProtectedRoute>
               } />
               <Route path="/jobs" element={<Jobs />} />
+              <Route path='/signup' element={<Signup></Signup>}></Route>
               <Route path="/learning" element={<Learning />} />
               <Route path="/community" element={<Community />} />
               <Route path="/bike-sharing" element={<BikeSharing />} />

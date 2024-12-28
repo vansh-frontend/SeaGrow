@@ -53,7 +53,7 @@ const Navbar = () => {
               </>
             ) : (
               <Link
-                to="/login"
+                to="/signup"
                 className="bg-teal-700 px-4 py-2 rounded hover:bg-teal-800"
               >
                 Sign In
@@ -101,7 +101,7 @@ const Navbar = () => {
               </>
             ) : (
               <Link
-                to="/login"
+                to="/signup"
                 className="block py-2 hover:text-teal-200"
                 onClick={() => setIsOpen(false)}
               >
