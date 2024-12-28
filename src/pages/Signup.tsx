@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { auth } from './FirebaseConfig'; // Correct the import path
+import { auth } from './FirebaseConfig'; // Correct the import path
 // import { auth } from '@/pages/firebaseConfig';  // Use alias to resolve the path
 
 import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
