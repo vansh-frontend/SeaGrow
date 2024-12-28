@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+FirebaseConfig.ts
+Signup.tsx
