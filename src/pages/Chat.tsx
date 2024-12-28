@@ -1,101 +1,81 @@
-import React from 'react';
-import { supabase } from '../lib/supabase';
-import { useAuth } from '../contexts/AuthContext';
-import { Send } from 'lucide-react';
+// src/pages/Chat.tsx
+import React, { useState } from 'react';
+import { Send, MessageCircle } from 'lucide-react'; // Importing MessageCircle for the icon
 
 const Chat = () => {
-  const { user } = useAuth();
-  const [messages, setMessages] = React.useState<any[]>([]);
-  const [newMessage, setNewMessage] = React.useState('');
+  const [messages, setMessages] = useState<any[]>([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [isChatbotVisible, setChatbotVisible] = useState(false);
 
-  React.useEffect(() => {
-    fetchMessages();
-    const subscription = supabase
-      .channel('chat_messages')
-      .on('INSERT', payload => {
-        setMessages(prev => [...prev, payload.new]);
-      })
-      .subscribe();
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  const fetchMessages = async () => {
-    const { data } = await supabase
-      .from('chat_messages')
-      .select(`
-        *,
-        sender:sender_id (username, avatar_url),
-        receiver:receiver_id (username, avatar_url)
-      `)
-      .order('created_at', { ascending: true });
-    if (data) setMessages(data);
+  // Function to toggle chatbot visibility
+  const toggleChatbot = () => {
+    setChatbotVisible(prev => !prev);
   };
 
-  const sendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newMessage.trim()) return;
+  // Function to add messages to the chat
+  const addMessage = (message: string, isUser: boolean = false) => {
+    setMessages(prev => [...prev, { content: message, sender: isUser ? 'user' : 'bot' }]);
+  };
 
-    await supabase.from('chat_messages').insert({
-      content: newMessage,
-      sender_id: user?.id,
-    });
+  // Function to handle user message
+  const handleUserMessage = async () => {
+    const message = newMessage.trim();
+    if (message) {
+      addMessage(message, true);
+      setNewMessage('');
 
-    setNewMessage('');
+      // Call the chatbot API (replace with your API endpoint)
+      const response = await fetch('https://api.example.com/chatbot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      const data = await response.json();
+      addMessage(data.reply); // Assuming the API returns a reply field
+    }
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-lg shadow">
-      <div className="h-[600px] flex flex-col">
-        <div className="flex-1 p-4 overflow-y-auto">
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex items-start space-x-2 mb-4 ${
-                message.sender_id === user?.id ? 'flex-row-reverse' : ''
-              }`}
-            >
-              {message.sender?.avatar_url ? (
-                <img
-                  src={message.sender.avatar_url}
-                  alt={message.sender.username}
-                  className="w-8 h-8 rounded-full"
-                />
-              ) : (
-                <div className="w-8 h-8 rounded-full bg-gray-200" />
-              )}
-              <div
-                className={`max-w-[70%] p-3 rounded-lg ${
-                  message.sender_id === user?.id
-                    ? 'bg-teal-600 text-white'
-                    : 'bg-gray-100'
-                }`}
-              >
-                <p>{message.content}</p>
+    <div className="relative">
+      {/* Circular Icon Button */}
+      <button
+        className="fixed bottom-4 right-4 bg-teal-600 text-white p-3 rounded-full shadow-lg hover:bg-teal-700 transition"
+        onClick={toggleChatbot}
+      >
+        <MessageCircle className="h-6 w-6" />
+      </button>
+
+      {/* Chatbot Modal */}
+      {isChatbotVisible && (
+        <div className="chatbot-container fixed bottom-16 right-4 bg-white border rounded-lg shadow-lg p-4 w-80">
+          <h2 className="text-lg font-bold">Chatbot</h2>
+          <div className="chat-messages h-48 overflow-y-auto border-b mb-2">
+            {messages.map((message, index) => (
+              <div key={index} className={`message p-2 rounded-lg mb-2 ${message.sender === 'user' ? 'bg-teal-100 text-right' : 'bg-gray-200 text-left'}`}>
+                {message.content}
               </div>
-            </div>
-          ))}
-        </div>
-        <form onSubmit={sendMessage} className="p-4 border-t">
-          <div className="flex space-x-2">
+            ))}
+          </div>
+          <div className="flex">
             <input
               type="text"
+              className="chat-input flex-1 border rounded-lg p-2"
+              placeholder="Type a message..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Type a message..."
-              className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             <button
-              type="submit"
-              className="bg-teal-600 text-white p-2 rounded-lg hover:bg-teal-700"
+              className="send-message bg-teal-600 text-white p-2 rounded-lg ml-2"
+              onClick={handleUserMessage}
             >
               <Send className="h-5 w-5" />
             </button>
           </div>
-        </form>
-      </div>
+        </div>
+      )}
     </div>
   );
 };

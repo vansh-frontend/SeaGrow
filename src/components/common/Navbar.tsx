@@ -1,3 +1,4 @@
+// src/components/common/Navbar.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -16,7 +17,6 @@ const Navbar = () => {
     { path: '/community', label: 'Community' },
     { path: '/bike-sharing', label: 'Bike Sharing' },
     { path: '/news', label: 'News' },
-    { path: '/chat', label: 'Chat' },
     { path: '/content', label: 'Content' },
     { path: '/todo', label: 'Todo' },
   ];
@@ -62,10 +62,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={toggleMenu}
-            className="md:hidden"
-          >
+          <button onClick={toggleMenu} className="md:hidden">
             {isOpen ? <X /> : <Menu />}
           </button>
         </div>

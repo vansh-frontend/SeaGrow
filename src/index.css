@@ -6,3 +6,24 @@
 ::-webkit-scrollbar{
     width: 0;
 }
+
+
+/* Add this to your global CSS file or a CSS module */
+.chatbot-container {
+    max-width: 300px; /* Adjust width as needed */
+  }
+  
+  .message {
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .user-message {
+    background-color: #e0f7fa; /* Light blue for user messages */
+    text-align: right;
+  }
+  
+  .bot-message {
+    background-color: #f1f1f1; /* Light gray for bot messages */
+  }

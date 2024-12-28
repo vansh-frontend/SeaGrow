@@ -39,9 +39,19 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-lg mb-4">Contact</h3>
             <ul className="space-y-2">
-              <li className="text-gray-400">Email: support@seagro.com</li>
-              <li className="text-gray-400">Phone: (555) 123-4567</li>
-              <li className="text-gray-400">Address: 123 SeaGro Street</li>
+            <li>
+  <a href="mailto:vanshdhalor4@gmail.com" className="text-gray-400 hover:text-white">Email: vanshdhalor4@gmail.com</a>
+</li>
+<li>
+  <a href="mailto:pathakmadhv2803@gmail.com" className="text-gray-400 hover:text-white">Email: pathakmadhv2803@gmail.com</a>
+</li>
+<li>
+  <a href="tel:+918171924503" className="text-gray-400 hover:text-white">Phone: +91 8171924503</a>
+</li>
+<li>
+  <a href="tel:+919888601907" className="text-gray-400 hover:text-white">Phone: +91 9888601907</a>
+</li>
+              <li className="text-gray-400">Address: Chandigarh University</li>
             </ul>
           </div>
         </div>
