@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { auth } from "@/pages/firebaseConfig"; // Adjust the import path for Firebase config
-import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth"; // Ensure correct Firebase imports
+import { auth } from './firebaseConfig'; // Correct the import path
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
