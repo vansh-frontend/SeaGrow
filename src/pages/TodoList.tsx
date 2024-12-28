@@ -63,7 +63,9 @@ const TodoList = () => {
   // Delete a todo with confirmation
   const deleteTodo = (id: string) => {
     if (confirmDelete === id) {
-      setTodos(todos.filter((todo) => todo.id !== id)); // Delete the todo if confirmed
+      const updatedTodos = todos.filter((todo) => todo.id !== id);
+      setTodos(updatedTodos); // Update the state
+      localStorage.setItem("todos", JSON.stringify(updatedTodos)); // Update localStorage
       setConfirmDelete(null); // Reset delete confirmation
     } else {
       setConfirmDelete(id); // Set delete confirmation for the selected todo
@@ -108,7 +110,7 @@ const TodoList = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-6">Professional Todo List</h1>
+      <h1 className="text-4xl font-bold mb-6">My To-Dos</h1>
 
       {/* Add Todo Form */}
       <form onSubmit={addTodo} className="mb-8">
