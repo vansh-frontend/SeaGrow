@@ -13,7 +13,7 @@ const Signup = () => {
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Sign Up with:", email, password);
-
+    
     // Firebase Authentication Sign-Up logic
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
