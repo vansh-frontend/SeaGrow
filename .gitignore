@@ -23,5 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-FirebaseConfig.ts
-Signup.tsx
+
+src/pages/firebaseConfig.ts
+src/pages/firebaseConfig.js
