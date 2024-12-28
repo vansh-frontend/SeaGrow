@@ -41,9 +41,9 @@ function App() {
               } />
               <Route path="/content" element={<ContentSharing />} />
               <Route path="/todo" element={
-                <ProtectedRoute>
+                // <ProtectedRoute
                   <TodoList />
-                </ProtectedRoute>
+                // </ProtectedRoute>
               } />
             </Routes>
           </main>
