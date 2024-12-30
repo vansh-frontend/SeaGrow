@@ -151,28 +151,6 @@ const Home = () => {
           </Link>
         ))}
       </section>
-
-      {/* Stats Section */}
-      <section className="bg-white p-8 rounded-lg shadow-md">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div className="text-4xl font-bold text-teal-600">10K+</div>
-            <div className="text-gray-600">Active Users</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-teal-600">500+</div>
-            <div className="text-gray-600">Available Courses</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-teal-600">1000+</div>
-            <div className="text-gray-600">Job Listings</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-teal-600">50+</div>
-            <div className="text-gray-600">Community Events</div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

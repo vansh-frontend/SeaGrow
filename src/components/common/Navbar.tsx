@@ -27,6 +27,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
             <Ship className="h-8 w-8" />
+            {/* <img src="img/Seagro1.png" alt="" className='h-10 w-10' /> */}
             <span className="font-bold text-xl">SeaGro</span>
           </Link>
 

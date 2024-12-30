@@ -32,7 +32,6 @@ const Footer = () => {
               <li><a href="/news" className="text-gray-400 hover:text-white">News</a></li>
               <li><a href="/content" className="text-gray-400 hover:text-white">Content</a></li>
               <li><a href="/todo" className="text-gray-400 hover:text-white">Todo Lists</a></li>
-              <li><a href="/chat" className="text-gray-400 hover:text-white">Chat</a></li>
             </ul>
           </div>
           
