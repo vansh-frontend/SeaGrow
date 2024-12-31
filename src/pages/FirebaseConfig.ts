@@ -1,10 +1,9 @@
-// src/components/firebase.js
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBnWpDV5L5PSzmmHcH9-IVGmqG2n8gmePk",
-authDomain: "seagro-9950d.firebaseapp.com",
+  authDomain: "seagro-9950d.firebaseapp.com",
   projectId: "seagro-9950d",
   storageBucket: "seagro-9950d.appspot.com",
   messagingSenderId: "700836761199",
