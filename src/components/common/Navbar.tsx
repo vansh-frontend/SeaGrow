@@ -1,12 +1,26 @@
-// src/components/common/Navbar.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Ship, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, signInWithGoogle } = useAuth();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  console.log('Current user state:', user);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -27,12 +41,11 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
             <Ship className="h-8 w-8" />
-            {/* <img src="img/Seagro1.png" alt="" className='h-10 w-10' /> */}
             <span className="font-bold text-xl">SeaGro</span>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-4">
+          <div className="hidden md:flex space-x-4 relative">
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -43,22 +56,32 @@ const Navbar = () => {
               </Link>
             ))}
             {user ? (
-              <>
-                <Link to="/profile" className="hover:text-teal-200">Profile</Link>
-                <button
-                  onClick={signOut}
-                  className="bg-teal-700 px-4 py-2 rounded hover:bg-teal-800"
+              <div className="relative" ref={dropdownRef}>
+                <button 
+                  className="hover:text-teal-200"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
-                  Sign Out
+                  Hello, {user.displayName}
                 </button>
-              </>
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white text-black shadow-lg rounded">
+
+                    <button
+                      onClick={signOut}
+                      className="block w-full text-left px-4 py-2 hover:bg-teal-100"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link
-                to="/signup"
-                className="bg-teal-700 px-4 py-2 rounded hover:bg-teal-800"
-              >
-                Sign In
-              </Link>
+              to="/signup"
+              className="bg-teal-700 px-4 py-2 rounded hover:bg-teal-800"
+            >
+              Sign In / Sign Up
+            </Link>
             )}
           </div>
 
@@ -83,9 +106,12 @@ const Navbar = () => {
             ))}
             {user ? (
               <>
+                <div className="block py-2 hover:text-teal-200">
+                  Hello, {user.displayName}
+                </div>
                 <Link
                   to="/profile"
-                  className="block py-2 hover:text-teal-200"
+                  className="block py-2 hover:text-teal-200 pl-4"
                   onClick={() => setIsOpen(false)}
                 >
                   Profile
@@ -95,19 +121,21 @@ const Navbar = () => {
                     signOut();
                     setIsOpen(false);
                   }}
-                  className="block w-full text-left py-2 hover:text-teal-200"
+                  className="block w-full text-left py-2 hover:text-teal-200 pl-4"
                 >
                   Sign Out
                 </button>
               </>
             ) : (
-              <Link
-                to="/signup"
+              <button
+                onClick={() => {
+                  signInWithGoogle();
+                  setIsOpen(false);
+                }}
                 className="block py-2 hover:text-teal-200"
-                onClick={() => setIsOpen(false)}
               >
-                Sign In
-              </Link>
+                Sign In with Google
+              </button>
             )}
           </div>
         )}
@@ -115,5 +143,4 @@ const Navbar = () => {
     </nav>
   );
 };
-
 export default Navbar;
