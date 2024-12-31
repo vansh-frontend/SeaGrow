@@ -22,7 +22,7 @@ const Profile = () => {
   const [mediaType, setMediaType] = useState<string>('');
   const [likes, setLikes] = useState<any>({}); // Track likes per post
   const [editingPost, setEditingPost] = useState<any | null>(null); // Track the post being edited
-  const [showShareModal, setShowShareModal] = useState(false); // To toggle the share modal
+  const [showShareModal, setShowShareModal] = useState<string>(''); // To toggle the share modal and hold URL for sharing
 
   // Load posts from local storage
   useEffect(() => {
@@ -99,7 +99,7 @@ const Profile = () => {
 
   // Handle share modal toggle
   const toggleShareModal = (postId: string) => {
-    const postUrl = `https://seagro.vercel.app/post/${postId}`;
+    const postUrl = `https://seagro.vercel.app/content/post/${postId}`; // Corrected path
     setShowShareModal(postUrl); // Store the generated URL for the post
   };
 
@@ -262,7 +262,7 @@ const Profile = () => {
             </div>
             <div className="mt-4 flex justify-end">
               <button
-                onClick={() => setShowShareModal(false)}
+                onClick={() => setShowShareModal('')}
                 className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
               >
                 Close
