@@ -99,7 +99,7 @@ const Profile = () => {
 
   // Handle share modal toggle
   const toggleShareModal = (postId: string) => {
-    const postUrl = `https://seagro.vercel.app/content/post/${postId}`; // Corrected path
+    const postUrl = `https://seagro.vercel.app/content`; // Corrected path
     setShowShareModal(postUrl); // Store the generated URL for the post
   };
 
