@@ -7,8 +7,8 @@ const firebaseConfig = {
   projectId: "seagro-9950d",
   storageBucket: "seagro-9950d.appspot.com",
   messagingSenderId: "700836761199",
-  appId: "1:700836761199:web:9c2143b37bf800441a079a",
-  measurementId: "G-Z834VDBXBX"
+  appId: "540776989657-ch35i527mq64ptekm0vfdgg06la6j014.apps.googleusercontent.com",
+  measurementId: "G-Z834VDBXBX" 
 };
 
 // Initialize Firebase
