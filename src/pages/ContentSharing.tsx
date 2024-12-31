@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, MessageSquare, Share2, Trash2, Edit2 } from 'lucide-react';
+import { Heart, Share2, Trash2, Edit2 } from 'lucide-react';
 
 // Helper function to read files and return a base64 URL for preview
 const readFile = (file: File) => new Promise<string>((resolve) => {
@@ -98,8 +98,9 @@ const Profile = () => {
   };
 
   // Handle share modal toggle
-  const toggleShareModal = (postUrl: string) => {
-    setShowShareModal(!showShareModal);
+  const toggleShareModal = (postId: string) => {
+    const postUrl = `https://seagro.vercel.app/post/${postId}`;
+    setShowShareModal(postUrl); // Store the generated URL for the post
   };
 
   return (
@@ -208,12 +209,8 @@ const Profile = () => {
                     <Heart className="h-5 w-5" />
                     <span>{likes[post.id] ? 'Liked' : 'Like'}</span>
                   </button>
-                  <button className="flex items-center space-x-2 text-gray-500 hover:text-teal-600">
-                    <MessageSquare className="h-5 w-5" />
-                    <span>Comment</span>
-                  </button>
                   <button
-                    onClick={() => toggleShareModal(window.location.href + `/post/${post.id}`)}
+                    onClick={() => toggleShareModal(post.id)} // Generate the URL for sharing
                     className="flex items-center space-x-2 text-gray-500 hover:text-teal-600"
                   >
                     <Share2 className="h-5 w-5" />
@@ -243,34 +240,6 @@ const Profile = () => {
           ))}
         </div>
       </div>
-
-      {/* Edit Post Modal */}
-      {editingPost && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-96">
-            <textarea
-              value={editingPost.description}
-              onChange={(e) => setEditingPost({ ...editingPost, description: e.target.value })}
-              className="w-full p-4 border border-gray-300 rounded-lg mb-4"
-              placeholder="Edit your post"
-            />
-            <div className="flex justify-end space-x-4">
-              <button
-                onClick={handleModalClose}
-                className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleUpdatePostDescription}
-                className="bg-teal-600 text-white px-6 py-2 rounded"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Share Modal */}
       {showShareModal && (
