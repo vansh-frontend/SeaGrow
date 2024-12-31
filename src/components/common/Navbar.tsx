@@ -76,12 +76,12 @@ const Navbar = () => {
                 )}
               </div>
             ) : (
-              <Link
-              to="/signup"
-              className="bg-teal-700 px-4 py-2 rounded hover:bg-teal-800"
-            >
-              Sign In / Sign Up
-            </Link>
+              <button
+                onClick={signInWithGoogle}
+                className="bg-teal-700 px-4 py-2 rounded hover:bg-teal-800"
+              >
+                Sign In / Sign Up
+              </button>
             )}
           </div>
 
